@@ -17,7 +17,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <AdditionalFiles Include="Views\About\About.cshtml" />
+        <!-- extends watching group to include *.cshtml files -->
+        <Watch Include="**\*.cshtml" Exclude="node_modules\**\*;**\*.js.map;obj\**\*;bin\**\*" />
     </ItemGroup>
 
 </Project>
