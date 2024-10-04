@@ -1,0 +1,9 @@
+@model SimpleBlog.Models.LinkViewModel
+
+@{
+    string LinkTypeToKebabCase(LinkType type) => type.ToString().ToLower();
+
+    var cssClass = Model.Type == LinkType.Default ? "" : $"link-{LinkTypeToKebabCase(Model.Type)}";
+}
+
+<a href="@Model.Href" class="@cssClass">@Model.Text</a>

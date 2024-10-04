@@ -1,7 +1,12 @@
-﻿@{
+﻿@using SimpleBlog.Helpers
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome to hello SimpleBlog</h1>
+    <h1 class="display-4">Welcome to SimpleBlog</h1>
+    @await Html.LinkAsync("/about", "Hello", LinkType.Primary)
+    @await Html.LinkAsync("/contact", "Contact Us")
+    @await Html.LinkAsync("/posts", "View Posts", LinkType.Success)
 </div>
