@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleBlog", "SimpleBlog\SimpleBlog.csproj", "{E995512A-7A13-43D6-A4C7-D88AE2D6A16F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E995512A-7A13-43D6-A4C7-D88AE2D6A16F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E995512A-7A13-43D6-A4C7-D88AE2D6A16F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E995512A-7A13-43D6-A4C7-D88AE2D6A16F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E995512A-7A13-43D6-A4C7-D88AE2D6A16F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

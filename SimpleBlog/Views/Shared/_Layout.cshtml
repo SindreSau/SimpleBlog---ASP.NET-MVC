@@ -1,0 +1,156 @@
+﻿@addTagHelper *, SimpleBlog
+
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] - SimpleBlog</title>
+    <link href="https://cdn.jsdelivr.net/npm/fastbootstrap@2.2.0/dist/css/fastbootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <style>
+        .btn-icon {
+            padding: 0;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        /* Ensure smooth theme transitions */
+        body {
+            transition: background-color 0.1s ease, color 0.1s ease;
+        }
+
+        /* Use Flexbox to ensure main grows and footer stays at bottom */
+        body, html {
+            height: 100%;
+        }
+
+        .d-flex-grow {
+            flex: 1 0 auto;
+        }
+
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+<header>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <!-- Toggler button for mobile view -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarExample" aria-controls="navbarExample" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar brand -->
+            <a class="navbar-brand" href="/">SimpleBlog</a>
+
+            <!-- Collapsible menu -->
+            <div class="collapse navbar-collapse" id="navbarExample">
+                <ul class="navbar-nav me-auto mb-0">
+                    <li class="nav-item">
+                        <a class="nav-link" is-active-route asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" is-active-route asp-controller="About" asp-action="Index">About</a>
+                    </li>
+                </ul>
+
+                <!-- User Dropdown and Dark/Light mode buttons -->
+                <ul class="navbar-nav ms-auto mb-0">
+                    <li class="nav-item dropdown">
+                        <button class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="avatar"><i class="bi bi-person"></i></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">My info</a></li>
+                            <li><a class="dropdown-item" href="#">My posts</a></li>
+                            <li><hr class="dropdown-divider"/></li>
+                            <li><a class="dropdown-item" href="#">My settings</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Dark/Light Mode Toggle Buttons -->
+                    <li class="nav-item btn-group mx-5">
+                        <!-- Light Mode (Sun Icon) -->
+                        <button id="lightMode" class="btn btn-primary btn-icon" type="button" aria-label="Light Mode">
+                            <i class="bi bi-sun"></i>
+                        </button>
+                        <!-- Dark Mode (Moon Icon) -->
+                        <button id="darkMode" class="btn btn-primary btn-icon" type="button" aria-label="Dark Mode">
+                            <i class="bi bi-moon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container d-flex-grow">
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
+
+<footer class="border-top footer text-muted mt-auto">
+    <div class="container d-flex justify-content-center align-items-center my-4">
+        &copy; 2024 - SimpleBlog
+    </div>
+</footer>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script>
+    const lightModeBtn = document.getElementById('lightMode');
+    const darkModeBtn = document.getElementById('darkMode');
+    const root = document.documentElement;
+
+    // Set initial state on page load
+    document.addEventListener('DOMContentLoaded', function () {
+        const theme = root.getAttribute('data-bs-theme') || 'light';
+        updateThemeButtons(theme);
+    });
+
+    // Add event listeners for buttons
+    lightModeBtn.addEventListener('click', () => {
+        setTheme('light');
+    });
+
+    darkModeBtn.addEventListener('click', () => {
+        setTheme('dark');
+    });
+
+    // Function to update theme
+    function setTheme(theme) {
+        root.setAttribute('data-bs-theme', theme);
+        updateThemeButtons(theme);
+        localStorage.setItem('theme', theme); // Store the theme preference
+    }
+
+    // Update the button states based on the current theme
+    function updateThemeButtons(theme) {
+        if (theme === 'light') {
+            lightModeBtn.classList.add('active');
+            darkModeBtn.classList.remove('active');
+        } else {
+            darkModeBtn.classList.add('active');
+            lightModeBtn.classList.remove('active');
+        }
+    }
+
+    // Load theme from local storage on page load
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme) {
+        setTheme(storedTheme);
+    } else {
+        setTheme('dark'); // Default to dark mode if no preference is set
+    }
+</script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
