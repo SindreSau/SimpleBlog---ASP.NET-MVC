@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SimpleBlog.Data;
+using SimpleBlog.Interfaces;
+using SimpleBlog.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,20 +21,8 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
 
 var app = builder.Build();
 
-// Run the DbSeeder
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    try
-    {
-        await DbSeeder.SeedDatabase(services);
-    }
-    catch (Exception ex)
-    {
-        var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "An error occurred while seeding the database.");
-    }
-}
+// Seed the database
+await app.SeedDatabase();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

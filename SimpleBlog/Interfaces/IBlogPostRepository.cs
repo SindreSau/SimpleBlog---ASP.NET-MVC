@@ -9,4 +9,6 @@ public interface IBlogPostRepository
     Task AddAsync(BlogPost blogPost);
     Task UpdateAsync(BlogPost blogPost);
     Task DeleteAsync(int id);
+    Task<IEnumerable<BlogPost>> GetPagedAsync(int pageNumber, int pageSize);
+    Task<int> GetCountAsync();
 }

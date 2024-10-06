@@ -44,4 +44,18 @@ public class BlogPostRepository(BlogDbContext context) : IBlogPostRepository
             await context.SaveChangesAsync();
         }
     }
+
+    public async Task<IEnumerable<BlogPost>> GetPagedAsync(int pageNumber, int pageSize)
+    {
+        return await context.BlogPosts
+            .Include(b => b.Author)
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+    }
+
+    public async Task<int> GetCountAsync()
+    {
+        return await context.BlogPosts.CountAsync();
+    }
 }
