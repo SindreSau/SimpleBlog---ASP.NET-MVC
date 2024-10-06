@@ -1,0 +1,47 @@
+.btn-icon {
+    padding: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+/* Ensure smooth theme transitions */
+body {
+    transition: background-color 0.1s ease, color 0.1s ease;
+}
+
+/* Use Flexbox to ensure main grows and footer stays at bottom */
+body, html {
+    height: 100%;
+}
+
+:root {
+    --custom-text-color: #333;
+    --custom-bg-color: #f8f9fa;
+    --custom-border-color: #dee2e6;
+    --custom-link-color: #007bff;
+}
+
+[data-bs-theme="dark"] {
+    --custom-text-color: #f8f9fa;
+    --custom-bg-color: #212529;
+    --custom-border-color: #495057;
+    --custom-link-color: #6ea8fe;
+}
+
+.blog-post-meta {
+    font-size: 0.9rem;
+    color: var(--custom-text-color);
+    opacity: 0.7;
+}
+
+.bg-card {
+    background-color: var(--custom-bg-color);
+    border-color: var(--custom-border-color);
+}
+
+.read-more {
+    color: var(--custom-link-color);
+}

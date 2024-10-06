@@ -1,6 +1,10 @@
 @model SimpleBlog.Models.BlogPost
 
-<article class="border rounded-2 p-4 blog-post">
+<style>
+
+</style>
+
+<article class="border rounded-2 p-4 bg-card mb-5">
     <header>
         <h2 class="">
             @Model.Title
@@ -18,7 +22,6 @@
         @if (Model.Content != null && Model.Content.Length > 200)
         {
             @Html.Raw(Model.Content.Substring(0, 200) + "...")
-            <a asp-controller="BlogPost" asp-action="Details" asp-route-id="@Model.BlogPostId" class="read-more">Read More</a>
         }
         else
         {
