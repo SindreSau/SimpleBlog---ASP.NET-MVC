@@ -4,10 +4,23 @@ using SimpleBlog.Models;
 
 namespace SimpleBlog.Data;
 
-public class BlogDbContext : IdentityDbContext
+public class BlogDbContext(DbContextOptions<BlogDbContext> options, IWebHostEnvironment env)
+    : IdentityDbContext(options)
 {
-    public BlogDbContext(DbContextOptions<BlogDbContext> options) : base(options)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+
+        if (env.IsDevelopment())
+        {
+            // SQLite-specific configurations
+
+        }
+        else
+        {
+            // PostgreSQL-specific configurations
+
+        }
     }
 
     // Add a DbSet for each entity

@@ -10,9 +10,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 // Add DbContext to the container
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<BlogDbContext>(options =>
 {
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+    if (builder.Environment.IsDevelopment())
+    {
+        options.UseSqlite(connectionString);
+    }
+    else
+    {
+        options.UseNpgsql(connectionString);
+    }
 });
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
