@@ -1,0 +1,35 @@
+@model ManageAccountViewModel
+
+@{
+    ViewData["Title"] = "Manage Account";
+}
+
+<h2>Manage Your Account</h2>
+<p>Here you can edit your username.</p>
+
+@if (TempData["StatusMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["StatusMessage"]
+    </div>
+}
+
+<form asp-action="Manage" asp-controller="Account" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="mb-3">
+        <label asp-for="Username" class="form-label"></label>
+        <input asp-for="Username" class="form-control"/>
+        <span asp-validation-for="Username" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label">Email (display)</label>
+        <input asp-for="Email" class="form-control text-muted" readonly/>
+    </div>
+    <div class="d-grid">
+        <button type="submit" class="btn btn-primary focus-ring">Save Changes</button>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial"/>
+}

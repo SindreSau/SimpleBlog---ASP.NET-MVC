@@ -1,0 +1,23 @@
+@model BlogPostsByAuthorViewModel
+
+@{
+    ViewData["Title"] = $"Posts by {Model.AuthorName}";
+}
+
+<h1 class="mb-4">@ViewData["Title"]</h1>
+
+@if (Model.BlogPosts.Any())
+{
+    <div class="d-flex flex-column gap-sm-2 gap-md-3 gap-lg-4">
+        @foreach (var post in Model.BlogPosts)
+        {
+            <partial name="_BlogPost" model="post"/>
+        }
+    </div>
+
+    @await Component.InvokeAsync("Pagination", new { currentPage = Model.CurrentPage, totalPages = Model.TotalPages, actionName = "AuthorPosts" })
+}
+else
+{
+    <p>No posts found for this author.</p>
+}

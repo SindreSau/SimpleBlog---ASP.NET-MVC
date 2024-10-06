@@ -3,6 +3,14 @@
     ViewData["Title"] = "About";
 }
 <h1 class="">@ViewData["Title"]</h1>
-@await Html.LinkAsync("/about", "Hello", LinkType.Primary)
-@await Html.LinkAsync("/contact", "Contact Us")
-@await Html.LinkAsync("/posts", "View Posts", LinkType.Success)
+<p>This is a simple blog application built with ASP.NET Core 8. The goal has been to learn using MVC, Identity and Entityframework.</p>
+<p>I also wanted to learn a bit about hosting, so this will be hosted using the free tier of Azure.</p>
+<div>
+    <p>Some features so far:</p>
+    <ol>
+        <li>The page contains @await Html.LinkAsync("/", "Pagination of blogposts", LinkType.Primary) on the homepage.</li>
+        <li>There is also this @await Html.LinkAsync("/about", "About", LinkType.Success) page.</li>
+        <li>If a user is logged in, they can create a new blog post @await Html.LinkAsync("/blogpost/create", "here", LinkType.Danger).</li>
+        <li>There is also a page that lists all blogposts by a specific author @await Html.LinkAsync("/blogpost/authorposts", "here", LinkType.Warning) as well as a way to edit userinfo such as userName on the @await Html.LinkAsync("/account/manage", "Manage Account", LinkType.BodyEmphasis) page.</li>
+    </ol>
+</div>

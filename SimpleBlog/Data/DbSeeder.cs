@@ -34,7 +34,7 @@ public static class DbSeeder
         {
             var user = new IdentityUser
             {
-                UserName = "admin@example.com",
+                UserName = "adminExample",
                 Email = "admin@example.com",
                 EmailConfirmed = true
             };
@@ -46,7 +46,7 @@ public static class DbSeeder
         {
             var user = new IdentityUser
             {
-                UserName = "user@example.com",
+                UserName = "userExample",
                 Email = "user@example.com",
                 EmailConfirmed = true
             };

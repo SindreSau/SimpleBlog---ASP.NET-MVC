@@ -1,4 +1,6 @@
+@using Microsoft.AspNetCore.Identity
 @model BlogPostIndexViewModel
+@inject SignInManager<IdentityUser> SignInManager
 
 @{
     ViewData["Title"] = "Welcome to Our Blog";
@@ -6,7 +8,21 @@
 
 <h1 class="mb-4">Welcome to Our Blog</h1>
 
-<div class="row">
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <p>
+        <a asp-action="Create" class="btn btn-primary focus-ring">Create New Post</a>
+    </p>
+} else
+{
+    <p>
+        <a asp-action="Login" asp-controller="Account" class="btn btn-primary">Login to Create New Post</a>
+    </p>
+}
+
+
+<div class="d-flex flex-column gap-sm-2 gap-md-3 gap-lg-4">
     @if (!Model.BlogPosts.Any())
     {
         <p>No posts found.</p>
@@ -14,69 +30,15 @@
 
     @foreach (var post in Model.BlogPosts)
     {
-        <div class="flex-column gap-5">
-            <partial name="_BlogPost" model="post"/>
-        </div>
+
+        <partial name="_BlogPost" model="post"/>
+
     }
 </div>
 
-<nav aria-label="Page navigation">
-    <ul class="pagination justify-content-center">
-        <!-- Previous page button -->
-        <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
-            <a class="page-link" asp-action="Index" asp-route-page="@(Model.CurrentPage - 1)" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-        </li>
-
-        <!-- First page button -->
-        <li class="page-item @(Model.CurrentPage == 1 ? "active" : "")">
-            <a class="page-link" asp-action="Index" asp-route-page="1">1</a>
-        </li>
-
-        <!-- Ellipsis for skipped pages (if needed) -->
-        @if (Model.CurrentPage > 3)
-        {
-            <li class="page-item disabled">
-                <span class="page-link">...</span>
-            </li>
-        }
-
-        <!-- Page numbers around the current page -->
-        @for (int i = Math.Max(2, Model.CurrentPage - 1); i <= Math.Min(Model.TotalPages - 1, Model.CurrentPage + 1); i++)
-        {
-            <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-                <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
-            </li>
-        }
-
-        <!-- Ellipsis for skipped pages (if needed) -->
-        @if (Model.CurrentPage < Model.TotalPages - 2)
-        {
-            <li class="page-item disabled">
-                <span class="page-link">...</span>
-            </li>
-        }
-
-        <!-- Last page button (if not already shown) -->
-        @if (Model.TotalPages > 1)
-        {
-            <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "active" : "")">
-                <a class="page-link" asp-action="Index" asp-route-page="@Model.TotalPages">@Model.TotalPages</a>
-            </li>
-        }
-
-        <!-- Next page button -->
-        <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
-            <a class="page-link" asp-action="Index" asp-route-page="@(Model.CurrentPage + 1)" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-        </li>
-    </ul>
-
-    <!-- Display total pages information -->
-    <div class="text-center mt-2">
-        <small>Page @Model.CurrentPage of @Model.TotalPages</small>
-    </div>
-</nav>
-
+@await Component.InvokeAsync("Pagination", new
+{
+    currentPage = Model.CurrentPage,
+    totalPages = Model.TotalPages,
+    actionName = "Index"
+})

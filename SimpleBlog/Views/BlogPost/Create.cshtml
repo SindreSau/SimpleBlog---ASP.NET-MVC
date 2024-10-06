@@ -1,0 +1,31 @@
+@model BlogPostCreateViewModel
+@{
+    ViewData["Title"] = "Create New Blog Post";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h1 class="text-center mb-4">@ViewData["Title"]</h1>
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+            <div class="mb-3">
+                <label asp-for="Title" class="form-label">Title</label>
+                <input asp-for="Title" class="form-control"/>
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Content" class="form-label">Content</label>
+                <textarea asp-for="Content" class="form-control" rows="10"></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary focus-ring">Create Post</button>
+                <a asp-action="Index" class="btn btn-secondary focus-ring">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial"/>
+}

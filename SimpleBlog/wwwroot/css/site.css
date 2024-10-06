@@ -16,32 +16,3 @@ body {
 body, html {
     height: 100%;
 }
-
-:root {
-    --custom-text-color: #333;
-    --custom-bg-color: #f8f9fa;
-    --custom-border-color: #dee2e6;
-    --custom-link-color: #007bff;
-}
-
-[data-bs-theme="dark"] {
-    --custom-text-color: #f8f9fa;
-    --custom-bg-color: #212529;
-    --custom-border-color: #495057;
-    --custom-link-color: #6ea8fe;
-}
-
-.blog-post-meta {
-    font-size: 0.9rem;
-    color: var(--custom-text-color);
-    opacity: 0.7;
-}
-
-.bg-card {
-    background-color: var(--custom-bg-color);
-    border-color: var(--custom-border-color);
-}
-
-.read-more {
-    color: var(--custom-link-color);
-}
