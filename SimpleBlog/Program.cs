@@ -9,8 +9,16 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
+// Get the connection string from the environment variable
+var connectionString = Environment.GetEnvironmentVariable("AZURE_POSTGRESQL_CONNECTIONSTRING");
+
+// If the Azure connection string is not available, fall back to the one in appsettings.json
+if (string.IsNullOrEmpty(connectionString))
+{
+    connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+}
+
 // Add DbContext to the container
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<BlogDbContext>(options =>
 {
     if (builder.Environment.IsDevelopment())

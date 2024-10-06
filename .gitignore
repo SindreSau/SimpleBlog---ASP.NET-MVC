@@ -7,3 +7,5 @@ riderModule.iml
 .idea/
 
 *.db
+*.db-shm
+*.db-wal
