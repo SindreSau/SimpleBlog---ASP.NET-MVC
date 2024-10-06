@@ -4,7 +4,7 @@ namespace SimpleBlog.Models
     {
         public string Href { get; set; } = "#";
         public LinkType Type { get; set; } = LinkType.Default;
-        public string Text { get; set; }
+        public string? Text { get; set; }
     }
 
     public enum LinkType

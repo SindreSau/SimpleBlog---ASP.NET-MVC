@@ -23,6 +23,10 @@
 
 
 <div class="d-flex flex-column gap-sm-2 gap-md-3 gap-lg-4">
+
+    @{
+        System.Diagnostics.Debug.Assert(Model.BlogPosts != null, "Model.BlogPosts != null");
+    }
     @if (!Model.BlogPosts.Any())
     {
         <p>No posts found.</p>

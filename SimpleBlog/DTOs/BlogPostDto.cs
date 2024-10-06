@@ -2,8 +2,8 @@ namespace SimpleBlog.DTOs;
 
 public class BlogPostInputDto
 {
-    public string Title { get; set; } = string.Empty;
-    public string Content { get; set; } = string.Empty;
+    public string? Title { get; set; } = string.Empty;
+    public string? Content { get; set; } = string.Empty;
     public string AuthorId { get; set; } = string.Empty;
 }
 

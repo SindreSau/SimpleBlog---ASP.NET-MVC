@@ -41,4 +41,7 @@
         <AdditionalFiles Include="Views\BlogPost\index.cshtml"/>
     </ItemGroup>
 
+    <PropertyGroup>
+        <NoWarn>$(NoWarn);CS7022</NoWarn>
+    </PropertyGroup>
 </Project>

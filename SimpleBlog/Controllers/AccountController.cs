@@ -22,24 +22,27 @@ namespace SimpleBlog.Controllers
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await signInManager.PasswordSignInAsync(model.UsernameOrEmail, model.Password,
-                    model.RememberMe, lockoutOnFailure: false);
-
-                if (!result.Succeeded)
+                if (model is { UsernameOrEmail: not null, Password: not null })
                 {
-                    // If the login fails, try to find the user by email
-                    var user = await userManager.FindByEmailAsync(model.UsernameOrEmail);
-                    if (user != null)
+                    var result = await signInManager.PasswordSignInAsync(model.UsernameOrEmail, model.Password,
+                        model.RememberMe, lockoutOnFailure: false);
+
+                    if (!result.Succeeded)
                     {
-                        if (user.UserName != null)
-                            result = await signInManager.PasswordSignInAsync(user.UserName, model.Password,
-                                model.RememberMe, lockoutOnFailure: false);
+                        // If the login fails, try to find the user by email
+                        var user = await userManager.FindByEmailAsync(model.UsernameOrEmail);
+                        if (user != null)
+                        {
+                            if (user.UserName != null)
+                                result = await signInManager.PasswordSignInAsync(user.UserName, model.Password,
+                                    model.RememberMe, lockoutOnFailure: false);
+                        }
                     }
-                }
 
-                if (result.Succeeded)
-                {
-                    return RedirectToLocal(returnUrl);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToLocal(returnUrl);
+                    }
                 }
 
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
@@ -61,18 +64,18 @@ namespace SimpleBlog.Controllers
         public async Task<IActionResult> Register(RegisterViewModel model, string? returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
-            if (ModelState.IsValid)
-            {
-                var user = new IdentityUser { UserName = model.Username, Email = model.Email };
-                var result = await userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    await signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToLocal(returnUrl);
-                }
+            if (!ModelState.IsValid) return View(model);
+            var user = new IdentityUser { UserName = model.Username, Email = model.Email };
 
-                AddErrors(result);
+            if (model.Password == null) return View(model);
+            var result = await userManager.CreateAsync(user, model.Password);
+            if (result.Succeeded)
+            {
+                await signInManager.SignInAsync(user, isPersistent: false);
+                return RedirectToLocal(returnUrl);
             }
+
+            AddErrors(result);
 
             return View(model);
         }
