@@ -51,6 +51,14 @@ builder.Services.AddScoped<IBlogPostRepository, BlogPostRepository>();
 
 var app = builder.Build();
 
+// Apply migrations
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var dbContext = services.GetRequiredService<BlogDbContext>();
+    dbContext.Database.Migrate();
+}
+
 // Seed the database
 await app.SeedDatabase();
 

@@ -3,11 +3,11 @@ using SimpleBlog.Data;
 using SimpleBlog.DTOs;
 using SimpleBlog.Interfaces;
 using SimpleBlog.Models;
-using ILogger = Castle.Core.Logging.ILogger;
+
 
 namespace SimpleBlog.Repositories;
 
-public class BlogPostRepository(BlogDbContext context, ILogger<BlogPostRepository> logger) : IBlogPostRepository
+public class BlogPostRepository(BlogDbContext context) : IBlogPostRepository
 {
 
     public async Task<IEnumerable<BlogPost>> GetAllAsync()

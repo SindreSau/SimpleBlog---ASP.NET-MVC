@@ -19,8 +19,8 @@ namespace SimpleBlog.TagHelpers
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            var currentController = ViewContext.RouteData.Values["Controller"] as string;
-            var currentAction = ViewContext.RouteData.Values["Action"] as string;
+            var currentController = ViewContext?.RouteData.Values["Controller"] as string;
+            var currentAction = ViewContext?.RouteData.Values["Action"] as string;
 
             if (string.Equals(Controller, currentController, StringComparison.OrdinalIgnoreCase) &&
                 (string.IsNullOrEmpty(Action) || string.Equals(Action, currentAction, StringComparison.OrdinalIgnoreCase)))
