@@ -29,13 +29,9 @@
             height: 100%;
         }
 
-        .d-flex-grow {
-            flex: 1 0 auto;
-        }
-
     </style>
 </head>
-<body class="d-flex flex-column min-vh-100">
+<body class="d-flex flex-column h-100">
 <header>
     <nav class="navbar navbar-expand-lg mx-4">
         <div class="container-fluid">
@@ -46,13 +42,13 @@
             </button>
 
             <!-- Navbar brand -->
-            <a class="navbar-brand" href="/">SimpleBlog</a>
+            <a class="navbar-brand" asp-controller="BlogPost" asp-action="Index">SimpleBlog</a>
 
             <!-- Collapsible menu -->
             <div class="collapse navbar-collapse" id="navbarExample">
                 <ul class="navbar-nav me-auto mb-0">
                     <li class="nav-item">
-                        <a class="nav-link" is-active-route asp-controller="Home" asp-action="Index">Home</a>
+                        <a class="nav-link" is-active-route asp-controller="BlogPost" asp-action="Index">Blog</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" is-active-route asp-controller="About" asp-action="Index">About</a>
@@ -63,13 +59,23 @@
                 <ul class="navbar-nav ms-auto mb-0">
                     <li class="nav-item dropdown">
                         <button class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="avatar"><i class="bi bi-person"></i></span>
+                            <span class="avatar">
+                                <i class="bi bi-person"></i>
+                            </span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">My info</a></li>
-                            <li><a class="dropdown-item" href="#">My posts</a></li>
-                            <li><hr class="dropdown-divider"/></li>
-                            <li><a class="dropdown-item" href="#">My settings</a></li>
+                            <li>
+                                <a class="dropdown-item" href="#">My info</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">My posts</a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider"/>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">My settings</a>
+                            </li>
                         </ul>
                     </li>
 
@@ -90,14 +96,14 @@
     </nav>
 </header>
 
-<div class="container d-flex-grow">
-    <main role="main" class="pb-3">
-        @RenderBody()
-    </main>
-</div>
 
-<footer class="border-top footer text-muted mt-auto">
-    <div class="container d-flex justify-content-center align-items-center my-4">
+<main role="main" class="flex-shrink-0 container-md pt-2">
+    @RenderBody()
+</main>
+
+
+<footer class="footer mt-auto py-3 border-top">
+    <div class="container-md d-flex justify-content-center align-items-center my-4">
         &copy; 2024 - SimpleBlog - <a href="/about">About</a>
     </div>
 </footer>

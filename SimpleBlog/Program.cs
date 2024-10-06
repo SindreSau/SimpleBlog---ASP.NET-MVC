@@ -7,7 +7,7 @@ using SimpleBlog.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 // Add DbContext to the container
 builder.Services.AddDbContext<BlogDbContext>(options =>
@@ -18,6 +18,9 @@ builder.Services.AddDbContext<BlogDbContext>(options =>
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<BlogDbContext>()
     .AddDefaultTokenProviders();
+
+// Register IBlogPostRepository
+builder.Services.AddScoped<IBlogPostRepository, BlogPostRepository>();
 
 var app = builder.Build();
 
@@ -41,6 +44,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=BlogPost}/{action=Index}/{id?}");
 
 app.Run();

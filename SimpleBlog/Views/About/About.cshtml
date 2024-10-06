@@ -1,6 +1,8 @@
+@using SimpleBlog.Helpers
 @{
     ViewData["Title"] = "About";
 }
-<h1>@ViewData["Title"]</h1>
-
-<p>About the blog</p>
+<h1 class="">@ViewData["Title"]</h1>
+@await Html.LinkAsync("/about", "Hello", LinkType.Primary)
+@await Html.LinkAsync("/contact", "Contact Us")
+@await Html.LinkAsync("/posts", "View Posts", LinkType.Success)

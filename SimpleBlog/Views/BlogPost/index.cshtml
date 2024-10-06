@@ -1,0 +1,16 @@
+@model IEnumerable<SimpleBlog.Models.BlogPost>
+
+@{
+    ViewData["Title"] = "Welcome to Our Blog";
+}
+
+<h1 class="mb-4">Welcome to Our Blog</h1>
+
+<div class="row">
+    @foreach (var post in Model)
+    {
+        <div class="flex-column">
+            <partial name="_BlogPost" model="post" />
+        </div>
+    }
+</div>

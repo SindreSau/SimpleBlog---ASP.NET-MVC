@@ -1,0 +1,34 @@
+@model SimpleBlog.Models.BlogPost
+
+<article class="border rounded-2 p-4 blog-post">
+    <header>
+        <h2 class="">
+            @Model.Title
+        </h2>
+        <p class="blog-post-meta">
+            Posted on @Model.CreatedDate.ToString("MMMM dd, yyyy")
+            @if (Model.Author != null)
+            {
+                <span>by @Model.Author.UserName</span>
+            }
+        </p>
+    </header>
+
+    <div class="blog-post-content">
+        @if (Model.Content != null && Model.Content.Length > 200)
+        {
+            @Html.Raw(Model.Content.Substring(0, 200) + "...")
+            <a asp-controller="BlogPost" asp-action="Details" asp-route-id="@Model.BlogPostId" class="read-more">Read More</a>
+        }
+        else
+        {
+            @Html.Raw(Model.Content)
+        }
+    </div>
+
+    <footer>
+        <p class="blog-post-meta">
+            Last updated: @Model.UpdatedDate.ToString("MMMM dd, yyyy")
+        </p>
+    </footer>
+</article>
